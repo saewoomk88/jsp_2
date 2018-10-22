@@ -5,11 +5,18 @@ import java.sql.Date;
 public class NoticeDTO {
 	
 	private int num;
+	private String title;
 	private String contents;
 	private String writer;
 	private Date reg_date;
 	private int hit;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getNum() {
 		return num;
 	}

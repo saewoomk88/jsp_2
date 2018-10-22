@@ -9,14 +9,29 @@ import com.iu.util.DBControl;
 
 public class NoticeDAO {
 	
+	public static void main(String[] args) {
+		NoticeDAO noticeDAO = new NoticeDAO();
+		NoticeDTO noticeDTO = new NoticeDTO();
+		noticeDTO.setTitle("s");
+		noticeDTO.setContents("s");
+		noticeDTO.setWriter("s");
+		int a =noticeDAO.insert(noticeDTO);
+	}
+	
+	public void update() {
+		
+		
+	}
+	
 	public int insert(NoticeDTO dto) throws Exception{
 		
 		Connection con = DBControl.getconnect();
-		String sql = "insert into notice values(notice_seq.nextval,?,?,sysdate,0)";
+		String sql = "insert into notice values(notice_seq.nextval,?,?,?,sysdate,0)";
 		PreparedStatement st = con.prepareStatement(sql);
 		
-		st.setString(1, dto.getContents());
-		st.setString(2, dto.getWriter());
+		st.setString(1, dto.getTitle());
+		st.setString(2, dto.getContents());
+		st.setString(3, dto.getWriter());
 		
 		int result = st.executeUpdate();
 		
@@ -49,6 +64,7 @@ public class NoticeDAO {
 		if(rs.next()) {
 			nDto=new NoticeDTO();
 			nDto.setNum(rs.getInt("num"));
+			nDto.setTitle(rs.getString("title"));
 			nDto.setContents(rs.getString("contents"));
 			nDto.setWriter(rs.getString("writer"));
 			nDto.setReg_date(rs.getDate("reg_date"));
@@ -63,7 +79,7 @@ public class NoticeDAO {
 	public ArrayList<NoticeDTO> selectAll() throws Exception {
 		
 		Connection con = DBControl.getconnect();
-		String sql = "select * from notice";
+		String sql = "select num,title,writer,reg_date,hit from notice order by num desc";
 		PreparedStatement st = con.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
 		ArrayList<NoticeDTO> ar = new ArrayList<>();
@@ -71,7 +87,7 @@ public class NoticeDAO {
 		while(rs.next()) {
 			nDto = new NoticeDTO();
 			nDto.setNum(rs.getInt("num"));
-			nDto.setContents(rs.getString("contents"));
+			nDto.setTitle(rs.getString("title"));
 			nDto.setWriter(rs.getString("writer"));
 			nDto.setReg_date(rs.getDate("reg_date"));
 			nDto.setHit(rs.getInt("hit"));
