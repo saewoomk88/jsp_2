@@ -9,13 +9,17 @@ import com.iu.util.DBControl;
 
 public class NoticeDAO {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		NoticeDAO noticeDAO = new NoticeDAO();
 		NoticeDTO noticeDTO = new NoticeDTO();
 		noticeDTO.setTitle("s");
 		noticeDTO.setContents("s");
 		noticeDTO.setWriter("s");
-		int a =noticeDAO.insert(noticeDTO);
+		
+		int a = noticeDAO.insert(noticeDTO);
+		System.out.println(a);
+		
+		
 	}
 	
 	public void update() {
